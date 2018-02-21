@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221082126) do
+ActiveRecord::Schema.define(version: 20180221084148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.integer "balance"
+    t.string "currency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "double_entry_account_balances", force: :cascade do |t|
     t.string "account", limit: 31, null: false
@@ -77,6 +84,13 @@ ActiveRecord::Schema.define(version: 20180221082126) do
     t.index ["account", "created_at"], name: "lines_account_created_at_idx"
     t.index ["scope", "account", "created_at"], name: "lines_scope_account_created_at_idx"
     t.index ["scope", "account", "id"], name: "lines_scope_account_id_idx"
+  end
+
+  create_table "transfers", force: :cascade do |t|
+    t.integer "amount"
+    t.string "currency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
